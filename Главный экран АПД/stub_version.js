@@ -1,4 +1,4 @@
-//* FOR = AGENT.DISPLAYS.NewView.APD.APD_main
+//* FOR = AGENT.DISPLAYS.NewView.APD.APD_main (28.02.22)
 
 webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Turned_On", function (e) {
 
@@ -32,15 +32,24 @@ webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Ready", function (e) {
 webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Running", function (e) {
   var id = "id_Running"; //2
   var idt = "id_TextRunning";
-  var value = e.value;
+  var isApdRunning = e.value;
 
-  if (value == true) {
+  if (isApdRunning == true) {
+
     webMI.gfx.setFill(id, "#00ff00");
     webMI.gfx.setFill(idt, "#000000");
+
   } else {
     webMI.gfx.setFill(id, "#004400");
     webMI.gfx.setFill(idt, "#ffffff");
+
+    document.getElementById("id_16").innerHTML = "0.00";
   }
+
+  // webMI.data.read("AGENT.OBJECTS.ASPD.APD1.MasterMode", function (masterModeEvent) {
+  //   masterMode(masterModeEvent);
+  // });
+
 });
 
 webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.No_Limit_Warning", function (e) {
@@ -130,9 +139,13 @@ webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.ModeReg", function (e) {
   }
 });
 
+webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.MasterMode", function (ev) {
+  masterMode(ev);
+});
 
+function masterMode(event) {
+  var e = event;
 
-webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.MasterMode", function (e) {
   var MDrilling = {
     id: "id_MasterModeDrilling",
     idt: "id_TextDrilling",
@@ -211,7 +224,7 @@ webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.MasterMode", function (e) {
       deleteSubscribes(DescentNodes)
       break;
   }
-})
+}
 
 function Fill_texts(objectToFill, objectsToClear) {
   webMI.gfx.setFill(objectToFill.id, "#00ff00");
@@ -225,6 +238,7 @@ function Fill_texts(objectToFill, objectsToClear) {
 }
 
 function createSubscribes(labels, nodes) {
+
   labels.forEach(function (e, cnt) {
 
     const label = labels[cnt];
@@ -494,26 +508,5 @@ webMI.data.subscribe("AGENT.OBJECTS.IVE50.Well.WellDepth", function (e) {
   var value = e.value;
 
   webMI.gfx.setText(id, webMI.sprintf("%.2f", value));
-
-});
-
-
-
-
-webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Running", function (e) {
-
-  var valueApdRun = e.value;
-
-  if (valueApdRun == false) {
-
-    document.getElementById("id_16").innerHTML = "0.00";
-
-  } else {
-
-    webMI.callExtension("SYSTEM.LIBRARY.ATVISE.QUICKDYNAMICS.Set Text",
-      { "decimalPlaces": "2", "id": "id_16", "nodeId": "AGENT.OBJECTS.IVE50.Well.DrillSpeed" }
-    );
-
-  }
 
 });

@@ -1,4 +1,4 @@
-//* FOR = AGENT.DISPLAYS.Test.left-gauge
+//* FOR = AGENT.DISPLAYS.Test.left-gauge (01.03.22)
 
 
 webMI.data.subscribe(webMI.query["HookWeight"], function (e) {
@@ -29,15 +29,12 @@ webMI.data.subscribe(webMI.query["BitLoad"], function (e) {
 });
 
 webMI.data.subscribe(webMI.query["HookPosition"], function (e) {
-  document.getElementById("HP").innerHTML = Math.round(e.value * 100) / 100
+  document.getElementById("HP").innerHTML = Math.round(e.value * 100) / 100;
 });
 
-var sposAverageCalc = [];
-var prevCalc = 0;
-var averageResult = 0;
-var CALC_AVERAGE_COUNT = 4;
+webMI.data.subscribe(webMI.query["SPOSpeed"], function (sposEvent) {
 
-webMI.data.subscribe(webMI.query["SPOSpeed"], function (e) {
+  var sposValue = sposEvent.value;
 
   webMI.data.read("AGENT.OBJECTS.IVE50.Drawworks.HookSpeed", function (hookSpeedEv) {
 
@@ -47,31 +44,9 @@ webMI.data.subscribe(webMI.query["SPOSpeed"], function (e) {
 
       document.getElementById("SPOS").innerHTML = "0.00";
 
-      sposAverageCalc = [];
-
     } else {
 
-      sposAverageCalc.push(e.value);
-
-      if (sposAverageCalc.length == CALC_AVERAGE_COUNT) {
-
-        var averCalc = sposAverageCalc.reduce(function (accumulator, currentValue) {
-          return (accumulator + currentValue) / sposAverageCalc.length;
-        });
-
-        averageResult = averCalc;
-
-        prevCalc = averCalc;
-
-        sposAverageCalc = [];
-
-      } else {
-
-        averageResult = prevCalc;
-
-      }
-
-      document.getElementById("SPOS").innerHTML = Math.round(averageResult * 100) / 100;
+      document.getElementById("SPOS").innerHTML = (Math.round(sposValue * 100) / 100).toFixed(2);
 
     }
 
