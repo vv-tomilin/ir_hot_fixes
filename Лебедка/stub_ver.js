@@ -1,4 +1,4 @@
-//* FOR = AGENT.DISPLAYS.Test.left-gauge (01.03.22)
+//* FOR = AGENT.DISPLAYS.Test.left-gauge (02.03.22)
 
 
 webMI.data.subscribe(webMI.query["HookWeight"], function (e) {
@@ -40,7 +40,7 @@ webMI.data.subscribe(webMI.query["SPOSpeed"], function (sposEvent) {
 
     var hookSpeed = hookSpeedEv.value;
 
-    if (hookSpeed <= 0) {
+    if (hookSpeed == 0) {
 
       document.getElementById("SPOS").innerHTML = "0.00";
 
