@@ -174,7 +174,8 @@ function masterMode(event) {
   ];
 
   var DrillingNodes = [
-    "AGENT.OBJECTS.ASPD.Drawworks.HookBlock.Position.Speed",
+    //* "AGENT.OBJECTS.ASPD.Drawworks.HookBlock.Position.Speed",
+    "AGENT.OBJECTS.IVE50.Well.DrillSpeed",
     "AGENT.OBJECTS.ASPD.APD1.Speed.Drill.Limit",
     "AGENT.OBJECTS.ASPD.APD1.Speed.Drill.Warning_Zone",
     "AGENT.OBJECTS.ASPD.APD1.Speed.Drill.SetPoint",
