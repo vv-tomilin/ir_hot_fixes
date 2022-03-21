@@ -1,4 +1,4 @@
-//* FOR = AGENT.DISPLAYS.Test.left-gauge (01.03.22)
+//* FOR = AGENT.DISPLAYS.Test.left-gauge (02.03.22) test
 
 
 webMI.data.subscribe(webMI.query["HookWeight"], function (e) {
@@ -10,8 +10,15 @@ webMI.data.subscribe(webMI.query["HookWeight"], function (e) {
   document.getElementById("WOH").innerHTML = num.toFixed(2)
 });
 
+var loadOnBitValues = [];
+var CALC_AVARAGE_LOB_COUNT = 2;
+var prevValue = 0;
+var result = 0;
+
 webMI.data.subscribe(webMI.query["BitLoad"], function (e) {
+
   var num = 0;
+
   if (e.value < 0) {
   } else {
     num = e.value
@@ -21,11 +28,28 @@ webMI.data.subscribe(webMI.query["BitLoad"], function (e) {
     var isAdpRunning = apdRun.value;
 
     if (isAdpRunning) {
-      document.getElementById("LOB").innerHTML = num.toFixed(2)
+      loadOnBitValues.push(num);
+
+      if (loadOnBitValues.length == CALC_AVARAGE_LOB_COUNT) {
+
+        result = loadOnBitValues.reduce(function (totalCalc, currentValue) {
+          return totalCalc + currentValue / CALC_AVARAGE_LOB_COUNT;
+        })
+
+        prevValue = result;
+
+        loadOnBitValues = [];
+
+      } else {
+        result = prevValue;
+      }
+
+      document.getElementById("LOB").innerHTML = result.toFixed(2)
     } else {
-      document.getElementById("LOB").innerHTML = "0.00"
+      document.getElementById("LOB").innerHTML = "0.00";
     }
   })
+
 });
 
 webMI.data.subscribe(webMI.query["HookPosition"], function (e) {
@@ -40,7 +64,7 @@ webMI.data.subscribe(webMI.query["SPOSpeed"], function (sposEvent) {
 
     var hookSpeed = hookSpeedEv.value;
 
-    if (hookSpeed <= 0) {
+    if (hookSpeed == 0) {
 
       document.getElementById("SPOS").innerHTML = "0.00";
 

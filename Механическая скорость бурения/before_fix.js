@@ -10,7 +10,7 @@ webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Running", function (e) {
 
   webMI.data.subscribe(webMI.query["base"], function (e) {
     var baseValue = e.value;
-    document.getElementById("ROP").innerHTML = baseValue.toFixed(2);
+    document.getElementById("ROP").innerHTML = baseValue;
   })
 
 });
