@@ -1,4 +1,4 @@
-//* FOR = AGENT.DISPLAYS.NewView.APD.APD_main (28.02.22)
+//* FOR = AGENT.DISPLAYS.NewView.APD.APD_main (22.03.22)
 
 webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Turned_On", function (e) {
 
@@ -45,10 +45,6 @@ webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Running", function (e) {
 
     document.getElementById("id_16").innerHTML = "0.00";
   }
-
-  // webMI.data.read("AGENT.OBJECTS.ASPD.APD1.MasterMode", function (masterModeEvent) {
-  //   masterMode(masterModeEvent);
-  // });
 
 });
 
@@ -335,19 +331,20 @@ webMI.data.subscribe("AGENT.OBJECTS.IVE50.Mud.Pump.PressureManifold", function (
 
 
 //* Нагрузка
-webMI.data.subscribe("AGENT.OBJECTS.IVE50.Drawworks.LoadOnBit", function (e) {
+webMI.data.subscribe("AGENT.OBJECTS.IVE50.Drawworks.LoadOnBit", function () {
 
   var id = "id_20";
-  var value = e.value;
 
   webMI.data.read("AGENT.OBJECTS.ASPD.APD1.Running", function (isRun) {
     var isApdRunning = isRun.value;
 
-    if (isApdRunning) {
-      webMI.gfx.setText(id, webMI.sprintf("%.2f", value));
-    } else {
-      document.getElementById(id).innerHTML = "0.00";
-    }
+    webMI.data.read("AGENT.OBJECTS.IVE50.Drawworks.LoadOnBit", function (loadOnbitEv) {
+      if (isApdRunning) {
+        document.getElementById(id).innerHTML = String(loadOnbitEv.value).toFixed(2);
+      } else {
+        document.getElementById(id).innerHTML = "0.00";
+      }
+    });
   });
 
 });
