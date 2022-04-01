@@ -46,6 +46,7 @@ webMI.data.read(['AGENT.OBJECTS.RigConstruction.direction',
     document.getElementById('modal-info-text').innerHTML = '<b>Сейчас бурится:</b></br><br/>' + normalName + '<br/>'
     document.getElementById('modal-info-text').innerHTML += 'Плановый забой:  ' + e[5].value.toFixed(2) + '<br/><br/>'
     webMI.data.call("GetHistorySimple", { t1: e[6].value, t2: Date.now(), address: "g:AGENT.OBJECTS.ServiceParams.NNB.cols.TechCol.fact" }, function (rawNNB) {
+      console.log('RAW NNB', rawNNB);
       document.getElementById('modal-info-text').innerHTML += '<b>КНБК</b>: <br/>'
       rawNNB.forEach(function (item) {
         console.log(JSON.parse(item))
