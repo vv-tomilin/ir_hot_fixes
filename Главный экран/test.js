@@ -8,14 +8,9 @@ webMI.data.read(['AGENT.OBJECTS.RigConstruction.direction',
   'AGENT.OBJECTS.IVE50.Well.WellDepth',
   'AGENT.OBJECTS.Depth_day_data.start_date'], function (e) {
 
-    console.log('EVENTS = ', e);
-
     resCol = 0;
 
     for (var i = 0; i < 5; i++) {
-
-      console.log('EVENTS e[' + i + '] = ', e[i]);
-      console.log('EVENTS e[5] = ', e[5]);
 
       if (e[i].value < e[5].value & e[i].value != 0) { console.log('nth') }
       else {
@@ -24,10 +19,6 @@ webMI.data.read(['AGENT.OBJECTS.RigConstruction.direction',
       }
 
     }
-
-    console.log('EVENTS resCol after', resCol);
-
-    console.log('EVENTS <colnum>' + resCol);
 
     serviceName = ''
     normalName = ''
@@ -53,13 +44,16 @@ webMI.data.read(['AGENT.OBJECTS.RigConstruction.direction',
         serviceName = 'Tail'
         break;
     }
+
+    var adr = "g:AGENT.OBJECTS.ServiceParams.NNB.cols." + serviceName + ".fact";
+
     document.getElementById('modal-info-text').innerHTML = '<b>Сейчас бурится:</b></br><br/>' + normalName + '<br/>'
     document.getElementById('modal-info-text').innerHTML += 'Плановый забой:  ' + e[5].value.toFixed(2) + '<br/><br/>'
-    webMI.data.call("GetHistorySimple", { t1: e[6].value, t2: Date.now(), address: "g:AGENT.OBJECTS.ServiceParams.NNB.cols.TechCol.fact" }, function (rawNNB) {
-      console.log('RAW NNB', rawNNB);
+    webMI.data.call("GetHistorySimple", { t1: e[6].value, t2: Date.now(), address: adr }, function (rawNNB) {
+
       document.getElementById('modal-info-text').innerHTML += '<b>КНБК</b>: <br/>'
       rawNNB.forEach(function (item) {
-        console.log(JSON.parse(item))
+
         document.getElementById('modal-info-text').innerHTML += JSON.parse(item).rows[0].element + '<br/>'
       })
 
