@@ -12,7 +12,9 @@ webMI.data.read(['AGENT.OBJECTS.RigConstruction.direction',
 
     for (var i = 0; i < 5; i++) {
 
-      if (e[i].value < e[5].value & e[i].value != 0) { console.log('nth') }
+      if (e[i].value < e[5].value & e[i].value != 0) {
+        console.log('nth')
+      }
       else {
         resCol = i;
         break;
