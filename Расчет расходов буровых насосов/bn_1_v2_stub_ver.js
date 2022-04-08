@@ -89,7 +89,7 @@ function pumpDatasRendering(event) {
 
       if (isPumpRun_1 && isPumpRun_2) {
 
-        webMI.data.read('AGENT.OBJECTS.IVE50.Mud.FlowInput', function (e) {
+        webMI.data.read(webMI.query['SmallBN1'], function (e) {
 
           document.getElementById('first').innerHTML = (e.value / 2).toFixed(1);
 
@@ -99,7 +99,7 @@ function pumpDatasRendering(event) {
 
       if (isPumpRun_1 && !isPumpRun_2) {
 
-        webMI.data.read('AGENT.OBJECTS.IVE50.Mud.FlowInput', function (e) {
+        webMI.data.read(webMI.query['SmallBN1'], function (e) {
 
           document.getElementById('first').innerHTML = e.value.toFixed(1);
 

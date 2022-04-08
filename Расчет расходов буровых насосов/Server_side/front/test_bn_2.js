@@ -27,12 +27,14 @@ webMI.data.subscribe("AGENT.OBJECTS.Test.ForMainWindow.APDWorking", function (e)
 
   var value = e.value;
 
-  if (value == true)
+  if (value == true) {
 
     document.getElementById('leb').style.color = "#1fc9ae";
 
-  if (value == false)
+  } else {
 
     document.getElementById('leb').style.color = "#36404a";
+
+  }
 
 });

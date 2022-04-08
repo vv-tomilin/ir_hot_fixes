@@ -10,12 +10,17 @@ webMI.data.subscribe(webMI.query["HookWeight"], function (e) {
   document.getElementById("WOH").innerHTML = num.toFixed(2)
 });
 
-webMI.data.subscribe(webMI.query["BitLoad"], function (e) {
+webMI.data.subscribe(webMI.query["BitLoad"], function () {
   var num = 0;
-  if (e.value < 0) {
-  } else {
-    num = e.value
-  }
+
+  webMI.data.read(webMI.query["BitLoad"], function (e) {
+
+    if (e.value < 0) {
+    } else {
+      num = e.value
+    }
+
+  });
 
   webMI.data.read("AGENT.OBJECTS.ASPD.APD1.Running", function (apdRun) {
     var isAdpRunning = apdRun.value;

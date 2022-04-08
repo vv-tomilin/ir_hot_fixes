@@ -339,8 +339,9 @@ webMI.data.subscribe("AGENT.OBJECTS.IVE50.Drawworks.LoadOnBit", function () {
     var isApdRunning = isRun.value;
 
     webMI.data.read("AGENT.OBJECTS.IVE50.Drawworks.LoadOnBit", function (loadOnbitEv) {
+
       if (isApdRunning) {
-        document.getElementById(id).innerHTML = String(loadOnbitEv.value).toFixed(2);
+        document.getElementById(id).innerHTML = Number(loadOnbitEv.value).toFixed(2);
       } else {
         document.getElementById(id).innerHTML = "0.00";
       }
