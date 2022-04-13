@@ -1,4 +1,4 @@
-//* FOR = AGENT.DISPLAYS.NewView.APD.APD_main (22.03.22)
+//* FOR = AGENT.DISPLAYS.NewView.APD.APD_main (12.04.22)
 
 webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Turned_On", function (e) {
 
@@ -43,7 +43,7 @@ webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Running", function (e) {
     webMI.gfx.setFill(id, "#004400");
     webMI.gfx.setFill(idt, "#ffffff");
 
-    document.getElementById("id_16").innerHTML = "0.00";
+    document.getElementById("id_16").innerHTML = "0.0";
   }
 
 });
@@ -250,11 +250,11 @@ function createSubscribes(labels, nodes) {
 
           if (isApdRunning) {
 
-            webMI.gfx.setText(e, webMI.sprintf("%.2f", f.value));
+            webMI.gfx.setText(e, webMI.sprintf("%.1f", f.value));
 
           } else {
 
-            webMI.gfx.setText(e, webMI.sprintf("%.2f", 0));
+            webMI.gfx.setText(e, webMI.sprintf("%.1f", 0));
 
           }
 
@@ -262,7 +262,7 @@ function createSubscribes(labels, nodes) {
 
       } else {
 
-        webMI.gfx.setText(e, webMI.sprintf("%.2f", f.value));
+        webMI.gfx.setText(e, webMI.sprintf("%.1f", f.value));
 
       }
 
@@ -307,6 +307,98 @@ webMI.data.subscribe("AGENT.OBJECTS.ASPD.MSE.Inputs.MSE_Start", function (e) {
 
 });
 
+webMI.data.subscribe("AGENT.OBJECTS.ASPD.Mode_Signals.Tool_Drillstem_Torque_Smoothing_DBTool_Drillstem_Torque_Smoothing_DB", function (e) {
+
+  var id = "id_Dempfer";
+  var idt = "id_TextDempfer";
+  var value = e.value;
+
+  if (value == true) {
+    webMI.gfx.setFill(id, "#00ff00");
+    webMI.gfx.setFill(idt, "#000000");
+  } else {
+    webMI.gfx.setFill(id, "#004400");
+    webMI.gfx.setFill(idt, "#ffffff");
+  }
+
+});
+
+webMI.data.subscribe("AGENT.OBJECTS.ASPD.Mode_Signals.MSE_DB_MSE_Start", function (e) {
+
+  var id = "id_UME";
+  var idt = "id_TextUME";
+  var value = e.value;
+
+  if (value == true) {
+    webMI.gfx.setFill(id, "#00ff00");
+    webMI.gfx.setFill(idt, "#000000");
+  } else {
+    webMI.gfx.setFill(id, "#004400");
+    webMI.gfx.setFill(idt, "#ffffff");
+  }
+
+});
+
+webMI.data.subscribe("AGENT.OBJECTS.ASPD.Mode_Signals.Smooth_Turn_On", function (e) {
+
+  var id = "id_Smooth_Turn_On";
+  var idt = "id_TextSmooth_Turn_On";
+  var value = e.value;
+
+  if (value == true) {
+    webMI.gfx.setFill(id, "#00ff00");
+    webMI.gfx.setFill(idt, "#000000");
+  } else {
+    webMI.gfx.setFill(id, "#004400");
+    webMI.gfx.setFill(idt, "#ffffff");
+  }
+
+});
+
+webMI.data.subscribe("AGENT.OBJECTS.ASPD.Mode_Signals.MSE_Turn_On", function (e) {
+
+  var id = "id_MSE_Turn_On";
+  var idt = "id_Text_MSE_Turn_On";
+  var value = e.value;
+
+  if (value == true) {
+    webMI.gfx.setFill(id, "#00ff00");
+    webMI.gfx.setFill(idt, "#000000");
+  } else {
+    webMI.gfx.setFill(id, "#004400");
+    webMI.gfx.setFill(idt, "#ffffff");
+  }
+
+});
+
+webMI.data.subscribe("AGENT.OBJECTS.ASPD.Mode_Signals.Rotation_Turn_On", function (e) {
+
+  var id = "id_Rotation_Turn_On";
+  var idt = "id_Text_Rotation_Turn_On";
+  var value = e.value;
+
+  if (value == true) {
+    webMI.gfx.setFill(id, "#00ff00");
+    webMI.gfx.setFill(idt, "#000000");
+
+    webMI.gfx.setText(idt, 'Откл вращение');
+  } else {
+    webMI.gfx.setFill(id, "#004400");
+    webMI.gfx.setFill(idt, "#ffffff");
+
+    webMI.gfx.setText(idt, 'Вкл вращение');
+  }
+
+});
+
+webMI.data.subscribe("AGENT.OBJECTS.ASPD.Mode_Signals.Stub_Freq_Set_In", function (e) {
+
+  var id = "id_StubFreq_Set_In";
+  var value = e.value;
+
+  webMI.gfx.setText(id, webMI.sprintf("%.1f", value));
+
+});
 
 
 webMI.data.subscribe("AGENT.OBJECTS.IVE50.Drawworks.WeightOnHook", function (e) {
@@ -341,9 +433,9 @@ webMI.data.subscribe("AGENT.OBJECTS.IVE50.Drawworks.LoadOnBit", function () {
     webMI.data.read("AGENT.OBJECTS.IVE50.Drawworks.LoadOnBit", function (loadOnbitEv) {
 
       if (isApdRunning) {
-        document.getElementById(id).innerHTML = Number(loadOnbitEv.value).toFixed(2);
+        document.getElementById(id).innerHTML = Number(loadOnbitEv.value).toFixed(1);
       } else {
-        document.getElementById(id).innerHTML = "0.00";
+        document.getElementById(id).innerHTML = "0.0";
       }
     });
   });
@@ -355,7 +447,7 @@ webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Diff_Pressure.PID.Inputs.Input", f
   var id = "id_23";
   var value = e.value;
 
-  webMI.gfx.setText(id, webMI.sprintf("%.2f", value));
+  webMI.gfx.setText(id, webMI.sprintf("%.1f", value));
 
 });
 
@@ -364,7 +456,7 @@ webMI.data.subscribe("AGENT.OBJECTS.IVE50.TDS.TDSTorque", function (e) {
   var id = "id_26";
   var value = e.value;
 
-  webMI.gfx.setText(id, webMI.sprintf("%.2f", value));
+  webMI.gfx.setText(id, webMI.sprintf("%.1f", value));
 
 });
 
@@ -375,22 +467,9 @@ webMI.data.subscribe("AGENT.OBJECTS.IVE50.TDS.TDSSpeed", function (e) {
   var id = "id_30";
   var value = e.value;
 
-  webMI.gfx.setText(id, webMI.sprintf("%.2f", value));
+  webMI.gfx.setText(id, webMI.sprintf("%.1f", value));
 
 });
-
-
-webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.ModeReg", function (e) {
-
-  var id = "id_36";
-  var value = e.value;
-
-  if (value == 2)
-    webMI.gfx.setFill(id, "#00ff00");
-
-});
-
-
 
 
 webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Load.Reg.Setpoint", function (e) {
@@ -398,7 +477,7 @@ webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Load.Reg.Setpoint", function (e) {
   var id = "id_39";
   var value = e.value;
 
-  webMI.gfx.setText(id, webMI.sprintf("%.2f", value));
+  webMI.gfx.setText(id, webMI.sprintf("%.1f", value));
 
 });
 
@@ -407,7 +486,7 @@ webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Diff_Pressure.Reg.Setpoint", funct
   var id = "id_41";
   var value = e.value;
 
-  webMI.gfx.setText(id, webMI.sprintf("%.2f", value));
+  webMI.gfx.setText(id, webMI.sprintf("%.1f", value));
 
 });
 
@@ -417,14 +496,9 @@ webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Torque.Setpoint", function (e) {
   var id = "id_43";
   var value = e.value;
 
-  webMI.gfx.setText(id, webMI.sprintf("%.2f", value));
+  webMI.gfx.setText(id, webMI.sprintf("%.1f", value));
 
 });
-
-
-
-
-
 
 
 webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Diff_Pressure.Drill.Limit", function (e) {
@@ -432,7 +506,7 @@ webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Diff_Pressure.Drill.Limit", functi
   var id = "id_2";
   var value = e.value;
 
-  webMI.gfx.setText(id, webMI.sprintf("%.2f", value));
+  webMI.gfx.setText(id, webMI.sprintf("%.1f", value));
 
 });
 
@@ -441,7 +515,7 @@ webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Torque.Limit", function (e) {
   var id = "id_3";
   var value = e.value;
 
-  webMI.gfx.setText(id, webMI.sprintf("%.2f", value));
+  webMI.gfx.setText(id, webMI.sprintf("%.1f", value));
 
 });
 
@@ -451,7 +525,7 @@ webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Diff_Pressure.Reg.Warning_Zone", f
   var id = "id_6";
   var value = e.value;
 
-  webMI.gfx.setText(id, webMI.sprintf("%.2f", value));
+  webMI.gfx.setText(id, webMI.sprintf("%.1f", value));
 
 });
 webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Torque.Warning_Zone", function (e) {
@@ -459,7 +533,7 @@ webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Torque.Warning_Zone", function (e)
   var id = "id_7";
   var value = e.value;
 
-  webMI.gfx.setText(id, webMI.sprintf("%.2f", value));
+  webMI.gfx.setText(id, webMI.sprintf("%.1f", value));
 
 });
 
