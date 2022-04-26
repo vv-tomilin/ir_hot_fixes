@@ -1,4 +1,4 @@
-//* FOR = AGENT.DISPLAYS.NewView.APD.APD_main (12.04.22)
+//* FOR = AGENT.DISPLAYS.NewView.APD.APD_main (26.04.22)
 
 webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Turned_On", function (e) {
 
@@ -238,33 +238,9 @@ function createSubscribes(labels, nodes) {
 
   labels.forEach(function (e, cnt) {
 
-    const label = labels[cnt];
-
     webMI.data.subscribe(nodes[cnt], function (f) {
 
-      if (label == "id_16") {
-
-        webMI.data.read("AGENT.OBJECTS.ASPD.APD1.Running", function (d) {
-
-          const isApdRunning = d.value;
-
-          if (isApdRunning) {
-
-            webMI.gfx.setText(e, webMI.sprintf("%.1f", f.value));
-
-          } else {
-
-            webMI.gfx.setText(e, webMI.sprintf("%.1f", 0));
-
-          }
-
-        });
-
-      } else {
-
-        webMI.gfx.setText(e, webMI.sprintf("%.1f", f.value));
-
-      }
+      webMI.gfx.setText(e, webMI.sprintf("%.1f", f.value));
 
     });
 
@@ -423,22 +399,12 @@ webMI.data.subscribe("AGENT.OBJECTS.IVE50.Mud.Pump.PressureManifold", function (
 
 
 //* Нагрузка
-webMI.data.subscribe("AGENT.OBJECTS.IVE50.Drawworks.LoadOnBit", function () {
+webMI.data.subscribe("AGENT.OBJECTS.IVE50.Drawworks.LoadOnBit", function (e) {
 
   var id = "id_20";
+  var value = e.value;
 
-  webMI.data.read("AGENT.OBJECTS.ASPD.APD1.Running", function (isRun) {
-    var isApdRunning = isRun.value;
-
-    webMI.data.read("AGENT.OBJECTS.IVE50.Drawworks.LoadOnBit", function (loadOnbitEv) {
-
-      if (isApdRunning) {
-        document.getElementById(id).innerHTML = Number(loadOnbitEv.value).toFixed(1);
-      } else {
-        document.getElementById(id).innerHTML = "0.0";
-      }
-    });
-  });
+  webMI.gfx.setText(id, webMI.sprintf("%.1f", value));
 
 });
 
