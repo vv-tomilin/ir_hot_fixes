@@ -1,4 +1,4 @@
-//* FOR = SYSTEM.LAYBRARY.PROJECT.OBJECTDISPLAYS.VovaObj.WinchLeft (01.03.22)
+//* FOR = SYSTEM.LAYBRARY.PROJECT.OBJECTDISPLAYS.VovaObj.WinchLeft (26.04.22)
 
 //* base = AGENT.OBJECTS.IVE50.Well.DrillSpeed
 
@@ -6,23 +6,9 @@ var lebedka = document.getElementById('leb');
 
 webMI.data.subscribe(webMI.query["base"], function (baseEvent) {
 
-  webMI.data.read("AGENT.OBJECTS.ASPD.APD1.Running", function (apdRunEv) {
+  var baseValue = baseEvent.value;
 
-    var isApdRunning = apdRunEv.value;
-
-    if (isApdRunning == false) {
-
-      document.getElementById("ROP").innerHTML = "0.00";
-
-    } else {
-
-      var baseValue = baseEvent.value;
-
-      document.getElementById("ROP").innerHTML = baseValue.toFixed(2);
-
-    }
-
-  });
+  document.getElementById("ROP").innerHTML = baseValue.toFixed(2);
 
 });
 
@@ -37,7 +23,6 @@ webMI.data.subscribe("AGENT.OBJECTS.Test.ForMainWindow.APDWorking", function (e)
   if (value == false) {
     document.getElementById('leb').style.color = "#36404a";
   }
-
 
 });
 

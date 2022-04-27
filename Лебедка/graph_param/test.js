@@ -1,7 +1,11 @@
+//* FOR = SISTEM.LIBRARY.PROJECT.OBJECTDISPLAYS.VovaObj.graphparam (26.04.22)
+
 var max = 10;
 
 webMI.data.read(webMI.query['max'], function (e) {
+
   max = e.value
+
 });
 
 var grey_part = document.getElementById("id_6");
@@ -16,63 +20,13 @@ blue_part.children[2].style.transition = '0.5s ease';
 yellow_part.children[2].style.transition = '0.5s ease';
 red_part.children[2].style.transition = '0.5s ease';
 
-
 webMI.data.subscribe(webMI.query["base"], function (e) {
-
-  webMI.data.read("AGENT.OBJECTS.ASPD.APD1.Running", function (apdRun) {
-
-    var query = webMI.query["base"];
-
-    var isApdRunning = apdRun.value;
-
-    if (isApdRunning) {
-
-      renderStarted(e, 'default');
-
-    } else {
-
-      if (query == "AGENT.OBJECTS.IVE50.Drawworks.LoadOnBit") {
-        renderStarted(e, 'load_on_bit');
-      } else {
-        renderStarted(e, 'default');
-      }
-
-    }
-  });
-});
-
-
-function renderStarted(event, config) {
-
-  if (config == 'default') {
-
-    rendering(event, config);
-
-  }
-
-  if (config == 'load_on_bit') {
-
-    rendering(event, config);
-
-  }
-}
-
-function rendering(ev, valConfig) {
-
-  var e = ev;
-
   if (e.value > max) {
 
     max = e.value;
   }
 
-  if (valConfig == 'default') {
-    var value = e.value / max;
-  }
-
-  if (valConfig == 'load_on_bit') {
-    var value = 0;
-  }
+  var value = e.value / max;
 
   var zerostr = "scale(0,0)";
   var fullstr = "scale(1,1)";
@@ -115,6 +69,6 @@ function rendering(ev, valConfig) {
     var est_value = 0.9 + ((value - 0.9) * 10 * 0.1);
     var str = "scale(" + est_value + "," + est_value + ")";
 
-    red_part.children[2].style.WebkitTransform = str
+    red_part.children[2].style.WebkitTransform = str;
   }
-}
+});
