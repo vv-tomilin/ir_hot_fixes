@@ -1,4 +1,4 @@
-//* FOR = AGENT.DISPLAYS.NewView.APD.APD_main (26.04.22)
+//* FOR = AGENT.DISPLAYS.NewView.APD.APD_main (27.04.22)
 
 webMI.data.subscribe("AGENT.OBJECTS.ASPD.APD1.Turned_On", function (e) {
 
@@ -171,7 +171,7 @@ function masterMode(event) {
 
   var DrillingNodes = [
     //* "AGENT.OBJECTS.ASPD.Drawworks.HookBlock.Position.Speed",
-    "AGENT.OBJECTS.IVE50.Well.DrillSpeed",
+    "AGENT.OBJECTS.IVE50.Well.DrillSpeed.DrillSpeedRaw",
     "AGENT.OBJECTS.ASPD.APD1.Speed.Drill.Limit",
     "AGENT.OBJECTS.ASPD.APD1.Speed.Drill.Warning_Zone",
     "AGENT.OBJECTS.ASPD.APD1.Speed.Drill.SetPoint",
@@ -399,10 +399,12 @@ webMI.data.subscribe("AGENT.OBJECTS.IVE50.Mud.Pump.PressureManifold", function (
 
 
 //* Нагрузка
-webMI.data.subscribe("AGENT.OBJECTS.IVE50.Drawworks.LoadOnBit", function (e) {
+webMI.data.subscribe("AGENT.OBJECTS.IVE50.Drawworks.LoadOnBit.LoadOnBitRaw", function (e) {
 
   var id = "id_20";
   var value = e.value;
+
+  console.log('LOB', value);
 
   webMI.gfx.setText(id, webMI.sprintf("%.1f", value));
 
