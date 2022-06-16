@@ -1,4 +1,4 @@
-//* FOR = AGENT.DISPLAYS.NewView.DemoDisplays.IR_Test_demo.IR_Test_Components.BitIndicator (28.04.22)
+//* FOR = AGENT.DISPLAYS.NewView.DemoDisplays.IR_Test_demo.IR_Test_Components.BitIndicator (16.05.22)
 
 var loadOnBitAddress = webMI.query['base'];
 
@@ -18,9 +18,9 @@ webMI.data.subscribe(loadOnBitAddress, function (e) {
 
       if (diffWellPosition < 1) {
 
-        if (isSlide && (value > 0)) {
+        if (isSlide && value > 0) {
           indicateDrillStatus(slideIndicatorElement, 1);
-        } else if ((isSlide === false) && (value > 0)) {
+        } else if (isSlide === false && value > 0) {
           indicateDrillStatus(rotorIndicatorElement, 1);
         } else {
           indicateDrillStatus(slideIndicatorElement, 0);
